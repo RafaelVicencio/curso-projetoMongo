@@ -1,6 +1,7 @@
 package com.rafaelvicencio.workshopmongo.services;
 
 import com.rafaelvicencio.workshopmongo.domain.User;
+import com.rafaelvicencio.workshopmongo.dto.UserDTO;
 import com.rafaelvicencio.workshopmongo.respository.UserRepository;
 import com.rafaelvicencio.workshopmongo.services.exception.ObjetctNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,8 @@ public class UserService {
 
     @Autowired
     private UserRepository repo;
-    public List<User> findAll(){
+
+    public List<User> findAll() {
         return repo.findAll();
     }
 
@@ -22,4 +24,11 @@ public class UserService {
                 .orElseThrow(() -> new ObjetctNotFoundException("Objeto não encontrado"));
     }
 
+    public User insert(User obj) {
+        return repo.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDto){
+        return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
+    }
 }
